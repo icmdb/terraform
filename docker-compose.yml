@@ -1,0 +1,14 @@
+version: "3"
+services:
+  terraform:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        - BASE_IMAGE=alpine:3.11
+        - MIRROR=mirrors.aliyun.com
+        - TF_VERSION=0.12.25
+    container_name: terraform
+    hostname: terraform
+    image: icmdb/terraform
+    command: sleep 1000
