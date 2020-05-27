@@ -11,4 +11,6 @@ services:
     container_name: terraform
     hostname: terraform
     image: icmdb/terraform
+    environment:
+    - TF_LOG=
     command: sleep 1000
