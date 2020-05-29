@@ -36,6 +36,25 @@ tfenv use 0.12.1        # Switch to the legacy version
 terraform version       # Show current terraform version
 ```
 
+## Try demos
+
+```
+docker exec -ti terraform bash
+
+cd ali 
+
+terraform init
+
+export ALICLOUD_ACCESS_KEY="YOUR_ALICLOUD_ACCESS_KEY"
+export ALICLOUD_SECRET_KEY="YOUR_ALICLOUD_SECRET_KEY"
+
+terraform plan
+
+terraform apply
+
+tree ./tf-outfile
+```
+
 ## Reference
 
 * [tfutils/tfenv](https://github.com/tfutils/tfenv)
