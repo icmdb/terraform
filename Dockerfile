@@ -1,7 +1,7 @@
 ARG BASE_IMAGE="alpine:3.11"
 ARG MIRROR="dl-cdn.alpinelinux.org"
-ARG TF_VERSION="0.12.25"
-ARG TF_PROMPT='\u@\h:\w \n(tf) \$ '
+ARG TF_VERSION="0.12.26"
+ARG TF_PROMPT='\u@\h:\w \n(tf$(tf_workspace))\$ '
 
 FROM ${BASE_IMAGE}
 MAINTAINER "<ihanyouqing@gmail.com>"
@@ -11,6 +11,7 @@ RUN sed -i 's#dl-cdn.alpinelinux.org#'${MIRROR}'#g' /etc/apk/repositories \
         git \
         curl \
         bash \
+        tree \
     && rm -r /var/cache/apk/* 
 
 ARG TF_PROMPT
@@ -30,11 +31,12 @@ ENV TF_LOG="TRACE" \
     TF_IN_AUTOMATION="1" \
     TF_REGISTRY_DISCOVERY_RETRY="3" \
     TF_REGISTRY_CLIENT_TIMEOUT="15" \
-    TF_WORKSPACE="default" \
+    TF_WORKSPACE="" \
     TF_VAR_demo="demo"
 
 ARG TF_VERSION
 RUN env bash \
+    && echo "tf_workspace(){ terraform workspace list|awk '\$1 == \"*\" {print \":\"\$NF}'; }" >> ~/.bashrc \
     && git clone https://github.com/tfutils/tfenv.git /root/.tfenv \
     && /root/.tfenv/bin/tfenv install ${TF_VERSION} \
     && /root/.tfenv/bin/tfenv use ${TF_VERSION} \

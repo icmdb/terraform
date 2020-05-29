@@ -7,10 +7,17 @@ services:
       args:
         - BASE_IMAGE=alpine:3.11
         - MIRROR=mirrors.aliyun.com
-        - TF_VERSION=0.12.25
+        - TF_VERSION=0.12.26
     container_name: terraform
     hostname: terraform
     image: icmdb/terraform
     environment:
-    - TF_LOG=
-    command: sleep 1000
+      - ALICLOUD_ACCESS_KEY=
+      - ALICLOUD_SECRET_KEY=
+      - ALICLOUD_REGION=
+      - AWS_ACCESS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
+      - AWS_DEFAULT_REGION=
+      - TF_LOG=
+      - TF_WORKSPACE=
+    command: sleep 1000000
